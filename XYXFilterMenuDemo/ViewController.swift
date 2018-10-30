@@ -10,9 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     let titles = ["第1列","第2列","第3列","第4列"]
-    
     var grayspaceHeight:[CGFloat]  = []
-    var views:[UIView] = []
+    var viewControllers:[UIViewController] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,14 +21,27 @@ class ViewController: UIViewController {
         menu.delegate = self
         self.view.addSubview(menu)
         
-        let view1 = Bundle.main.loadNibNamed("View1", owner: nil, options: nil)?.first as! View1
-        let view2 = Bundle.main.loadNibNamed("View2", owner: nil, options: nil)?.first as! View2
-        let view3 = Bundle.main.loadNibNamed("View3", owner: nil, options: nil)?.first as! View3
-        let view4 = Bundle.main.loadNibNamed("View4", owner: nil, options: nil)?.first as! View4
-        views.append(contentsOf: [view1,view2,view3,view4])
+        let aa = TableViewStyleC(nibName: "TableViewStyleC", bundle: nil)
+        let bb = TableViewStyleB(nibName: "TableViewStyleB", bundle: nil)
+        let cc = TableViewStyleA(nibName: "TableViewStyleA", bundle: nil)
+        let dd = DemoCollectionViewController(nibName: "DemoCollectionViewController", bundle: nil)
+        viewControllers.append(contentsOf: [aa,bb,cc,dd])
         
-        let tempValue = XYX_SCREEN_HEIGHT - menu.frame.maxY
-        grayspaceHeight = [tempValue - view1.frame.height, tempValue - view2.frame.height, tempValue - view3.frame.height, tempValue - view4.frame.height]
+        let tempValue:CGFloat = XYX_SCREEN_HEIGHT - menu.frame.maxY
+        let aaHeight:CGFloat = tempValue - aa.view.frame.height
+        let bbHeight:CGFloat = 216.0
+        let ccHeight:CGFloat = tempValue - cc.view.frame.height
+        grayspaceHeight = [aaHeight, bbHeight, ccHeight, 0.0]
+        
+        bb.callbackFinished = { title in
+            menu.closeFilter(with: title, at: 1)
+        }
+        cc.callbackFinished = { title in
+            menu.closeFilter(with: title, at: 2)
+        }
+        dd.callbackFinished = { title in
+            menu.closeFilter(with: title, at: 3)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,11 +61,12 @@ extension ViewController : XYXFreeFilterMenuDelegate{
     func menu(_ menu: XYXFreeFilterMenu, closedAt column: Int) {
         print("页面\(column):被关闭了")
     }
+    
 }
 
 extension ViewController : XYXFreeFilterMenuDataSource{
     func menu(_ menu: XYXFreeFilterMenu, viewOfColumnAt index: Int) -> UIView {
-        return views[index]
+        return viewControllers[index].view
     }
     
     func menu(_ menu: XYXFreeFilterMenu, grayspaceHeightOfColumnAt index: Int) -> CGFloat {
@@ -66,6 +79,4 @@ extension ViewController : XYXFreeFilterMenuDataSource{
     func numberOfColumns(menu: XYXFreeFilterMenu) -> Int {
         return titles.count
     }
-    
-    
 }

@@ -23,7 +23,7 @@ protocol XYXFreeFilterMenuDataSource : NSObjectProtocol {
 
 @objc protocol XYXFreeFilterMenuDelegate : NSObjectProtocol {
     
-    @objc optional func menu(_ menu:XYXFreeFilterMenu,tapIndex:Int)
+    @objc optional func menu(_ menu:XYXFreeFilterMenu, tapIndex:Int)
     @objc optional func menu(_ menu:XYXFreeFilterMenu, openAt column:Int)
     @objc optional func menu(_ menu:XYXFreeFilterMenu, closedAt column:Int)
     

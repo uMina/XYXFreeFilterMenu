@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="TableViewTailImageCell" customModule="XYXFilterMenuDemo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GM7-UL-6H5">
+                    <rect key="frame" x="20" y="16" width="35.5" height="17"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_default" translatesAutoresizingMaskIntoConstraints="NO" id="bfB-mD-MmV">
+                    <rect key="frame" x="334" y="14" width="21" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="21" id="F4v-MC-aMR"/>
+                        <constraint firstAttribute="height" constant="21" id="bh3-18-8jn"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="GM7-UL-6H5" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="58A-Dp-uVf"/>
+                <constraint firstItem="bfB-mD-MmV" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Avz-K5-ufd"/>
+                <constraint firstItem="GM7-UL-6H5" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="a4E-JU-nLk"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="bfB-mD-MmV" secondAttribute="trailing" constant="20" id="rtg-Up-Or3"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="iconImageView" destination="bfB-mD-MmV" id="Uol-Ow-r0a"/>
+                <outlet property="nameLabel" destination="GM7-UL-6H5" id="v3e-QR-LTB"/>
+            </connections>
+            <point key="canvasLocation" x="-18.5" y="-101"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="icon_default" width="22" height="22"/>
+    </resources>
+</document>

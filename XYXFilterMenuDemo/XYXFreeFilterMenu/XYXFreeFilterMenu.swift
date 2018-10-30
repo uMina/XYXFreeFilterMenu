@@ -127,10 +127,39 @@ class XYXFreeFilterMenu: UIView {
             indicator.position = CGPoint(x: text.frame.maxX + menuBarStyle.titleMargin/4, y: indicator.position.y)
         }
     }
+    
+    //MARK: - From ContentView
+    
+    func closeFilter(with menuTitle:String?, at columIndex:Int) {
+        
+        if let senderTitle = menuTitle{
+            
+            let titleLayer = titleLayers[columIndex]
+            titleLayer.string = senderTitle
+            let size = calculateTitleSizeWithString(string: senderTitle)
+            
+            let sizeWidth = (size.width < ((self.frame.size.width / CGFloat(numOfMenu)) - menuBarStyle.titleMargin)) ? size.width : (self.frame.size.width / CGFloat(numOfMenu) - menuBarStyle.titleMargin)
+            titleLayer.bounds = CGRect(x: 0, y: 0, width: sizeWidth, height: size.height)
+            
+            let indicatorLayer = indicatorLayers[columIndex]
+            let position = CGPoint(x: titleLayer.frame.maxX, y: self.frame.height/2)
+            indicatorLayer.position = CGPoint(x:(position.x + menuBarStyle.titleMargin/4), y:(position.y + 2))
+        }
+        closeFilter(at: columIndex)
+    }
+    
+    func closeFilter(at columIndex:Int?){
+        let column = columIndex == nil ? currentSelectedColumn : columIndex!
+        animate(unfold: false, filterView: filterView, indicator: indicatorLayers[column], title: titleLayers[column], backgroundView: backGroundView) {
+            self.isDisplayed = false
+            self.menuBgLayers[self.currentSelectedColumn].backgroundColor = self.menuBarStyle.backgroundDefaultColor.cgColor
+        }
+    }
 }
 
 // Animate
 extension XYXFreeFilterMenu{
+    
     func animate(unfold:Bool, filterView:XYXFreeFilterView, indicator:CAShapeLayer, title:CATextLayer, backgroundView:UIView, complete:(()->Void)?) {
         self.beginIgnoringInteractionEvents()
         self.animate(indicator: indicator, unfold: unfold) {
@@ -148,7 +177,6 @@ extension XYXFreeFilterMenu{
     }
     
     fileprivate func animate(indicator:CAShapeLayer,unfold:Bool,complete:(()->Void)?) {
-        
         let animate = CABasicAnimation.init(keyPath: "transform.rotation.z")
         animate.duration = animateDuration
         animate.isRemovedOnCompletion = false
@@ -211,10 +239,11 @@ extension XYXFreeFilterMenu{
                 
                 let grayspaceHeight = ds.menu(self, grayspaceHeightOfColumnAt: currentSelectedColumn)
                 filterView.contentView = ds.menu(self, viewOfColumnAt: currentSelectedColumn)
+                
+                
                 filterView.unfoldHeight = XYX_SCREEN_HEIGHT - frame.maxY - grayspaceHeight
                 
                 let newFrame = CGRect(x: self.frame.minX, y: self.frame.maxY, width: self.frame.width, height: filterView.unfoldHeight)
-                
                 if filterView.unfoldHeightChanged {
                     UIView.animate(withDuration: self.animateDuration, animations: {
                         filterView.frame = newFrame

@@ -17,6 +17,9 @@ class XYXFreeFilterView: UIView {
         }
         didSet{
             addSubview(contentView)
+            if contentView is UIScrollView {
+                contentView.reloadInputViews()
+            }
         }
     }
     
